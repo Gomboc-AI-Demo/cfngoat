@@ -1,6 +1,3 @@
-// Cloning Terraform src code to /var/folders/ly/1k1ptrtx3x34kw_vbx0698m80000gn/T/terraform_src...
-code has been checked out.
-
 data "aws_caller_identity" "current" {}
 
 data "aws_availability_zones" "available" {
@@ -67,7 +64,7 @@ resource "aws_ec2_instance_state" "ec2_instance" {
 }
 
 resource "aws_ebs_volume" "web_host_storage" {
-  availability_zone = element( // Unable to resolve Fn::GetAZs with value: "" because cannot access local variable 'az_data' where it is not associated with a value, 0)
+  availability_zone = element(0)
     size = 1
     tags = {
       Name                 = "${data.aws_caller_identity.current.account_id}-${var.company_name}-${var.environment}-ebs"
@@ -144,7 +141,7 @@ resource "aws_ebs_volume" "web_host_storage" {
   resource "aws_subnet" "web_subnet" {
     vpc_id     = aws_vpc.web_vpc.arn
     cidr_block = "172.16.10.0/24"
-    availability_zone = element( // Unable to resolve Fn::GetAZs with value: "" because cannot access local variable 'az_data' where it is not associated with a value, 0)
+    availability_zone = element(0)
       map_public_ip_on_launch = true
       tags = {
         Name                 = "${data.aws_caller_identity.current.account_id}-${var.company_name}-${var.environment}-subnet"
@@ -162,7 +159,7 @@ resource "aws_ebs_volume" "web_host_storage" {
     resource "aws_subnet" "web_subnet2" {
       vpc_id     = aws_vpc.web_vpc.arn
       cidr_block = "172.16.11.0/24"
-      availability_zone = element( // Unable to resolve Fn::GetAZs with value: "" because cannot access local variable 'az_data' where it is not associated with a value, 1)
+      availability_zone = element(1)
         map_public_ip_on_launch = true
         tags = {
           Name                 = "${data.aws_caller_identity.current.account_id}-${var.company_name}-${var.environment}-subnet2"
